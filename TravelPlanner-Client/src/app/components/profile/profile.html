@@ -1,0 +1,52 @@
+<div class="profile-wrapper">
+    <div class="sun-glow"></div>
+  
+    <div class="profile-card">
+      <h2>האזור ה-<span>אישי</span> שלך</h2>
+      <p>כאן תוכלי לעדכן את הפרטים שלך בכל זמן</p>
+  
+      <div *ngIf="isLoading" class="loading-text">טוען נתונים...</div>
+  
+      <form *ngIf="!isLoading" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>שם פרטי</label>
+          <input type="text" formControlName="firstName">
+        </div>
+  
+        <div class="form-group">
+          <label>שם משפחה</label>
+          <input type="text" formControlName="lastName">
+        </div>
+  
+        <div class="form-group">
+          <label>אימייל</label>
+          <input type="email" formControlName="email">
+        </div>
+  
+        <div class="form-group">
+          <label>כתובת מגורים</label>
+          <input type="text" formControlName="homeAddress">
+        </div>
+  
+        <div class="form-group checkbox-container">
+          <input type="checkbox" formControlName="preferAccessiblePaths" id="preferAccessiblePaths">
+          <label for="preferAccessiblePaths">אני מעדיפה מסלולים נגישים (כיסא גלגלים / קושי בהליכה)</label>
+        </div>
+  
+        <div class="form-group children-section">
+          <label>גילאי ילדים</label>
+  
+          <div formArrayName="childrenAges">
+            <div *ngFor="let child of childrenAgesArray.controls; let i = index" class="child-age-row">
+              <input type="number" [formControlName]="i" placeholder="גיל" min="0" max="18">
+              <button type="button" class="btn-remove-child" (click)="removeChild(i)">✕</button>
+            </div>
+          </div>
+  
+          <button type="button" class="btn-add-child" (click)="addChild()">+ הוסף ילד</button>
+        </div>
+  
+        <button type="submit" class="btn-save-profile">שמור שינויים</button>
+      </form>
+    </div>
+  </div>

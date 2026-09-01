@@ -1,0 +1,36 @@
+
+@if (loadingService.loading()) {
+  <div class="global-overlay-loader">
+    <div class="spinner"></div>
+    <p>{{ loadingService.message() }}</p>
+  </div>
+}
+
+<div class="sun-glow"></div>
+<nav class="navbar">
+    <div class="logo" routerLink="/">Travel<span>AI</span></div>
+    <div class="nav-links">
+      
+      <div class="weather-widget" style="margin-left: 20px; font-size: 18px;">
+        @if (weatherService.currentTemp() !== null) {
+          <span>{{ weatherService.weatherIcon() }} {{ weatherService.currentTemp() }}°C</span>
+        }
+      </div>
+
+      @if (authService.isLoggedIn()) {
+        <div class="user-menu">
+          <span class="welcome-msg">שלום, {{ authService.currentUser()?.firstName }}</span>
+          <a href="javascript:void(0)" (click)="onLogout()" class="logout-link">התנתקות</a>
+        </div>
+      } 
+      @else {
+        <a routerLink="/login">התחברות</a>
+        <a routerLink="/register">הרשמה</a>
+      }
+  
+      <a href="#">איך זה עובד?</a>
+      <a routerLink="/profile" class="btn-secondary small-btn">האזור האישי שלי</a>
+    </div>
+</nav>
+
+<router-outlet></router-outlet>

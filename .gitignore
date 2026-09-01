@@ -1,0 +1,16 @@
+# ===== .NET (Server) =====
+TravelPlanner-Server/**/bin/
+TravelPlanner-Server/**/obj/
+TravelPlanner-Server/**/appsettings.Development.json
+TravelPlanner-Server/**/*.user
+TravelPlanner-Server/.vs/
+
+# ===== Angular (Client) =====
+TravelPlanner-Client/node_modules/
+TravelPlanner-Client/dist/
+TravelPlanner-Client/.angular/
+TravelPlanner-Client/src/environments/environment.development.ts
+
+# ===== כללי =====
+.vscode/
+*.log

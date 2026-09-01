@@ -1,0 +1,63 @@
+<div class="plan-wrapper">
+  <div class="sun-glow"></div>
+
+  <div class="plan-card">
+    <h2>תכנני את הטיול ה-<span>AI</span> שלך</h2>
+    <h2>לאן מטיילים היום?</h2>
+    <p>ספרי לנו על היעד, ואנחנו נדאג לכל השאר.</p>
+
+    <form [formGroup]="planForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>עיר יעד</label>
+        <input type="text" formControlName="destination" placeholder="למשל: ירושלים, פריז...">
+        <div class="error-msg" *ngIf="planForm.get('destination')?.invalid && planForm.get('destination')?.touched">
+          שדה זה חובה
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>?מתי יוצאים</label>
+          <input type="date" formControlName="travelDate">
+          <div class="error-msg" *ngIf="planForm.get('destination')?.invalid && planForm.get('destination')?.touched">
+            שדה זה חובה
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>?כמה שעות יש לך</label>
+          <input type="number" formControlName="durationInHours">
+        </div>
+      </div>
+
+      <label for="category">מה סגנון הטיול?</label>
+      <select id="category" formControlName="category" name="category" class="form-control">
+        <option value="general">כללי (הכל מהכל)</option>
+        <option value="history">היסטוריה ואתרים עתיקים</option>
+        <option value="culinary">קולינריה ומסעדות</option>
+        <option value="nature">טבע ומסלולי הליכה</option>
+        <option value="shopping">קניות ובילויים</option>
+      </select>
+
+      <div class="form-group">
+        <label>תקציב</label>
+        <select formControlName="budget" class="form-control">
+          <option value="free">חינמי בלבד</option>
+          <option value="paid">גם בתשלום</option>
+        </select>
+      </div>
+
+      <div class="form-group" *ngIf="childrenAges.length > 0">
+        <label>מי מצטרף היום?</label>
+        <div *ngFor="let age of childrenAges">
+          <input type="checkbox" (change)="toggleChild(age, $event.target.checked)">
+          ילד בן {{age}}
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit" [disabled]="planForm.invalid">
+        ! צור לי מסלול חכם 🚀
+      </button>
+    </form>
+  </div>
+</div>

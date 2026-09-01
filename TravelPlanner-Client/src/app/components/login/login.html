@@ -1,0 +1,36 @@
+<div class="login-wrapper">
+    <div class="login-card">
+      <h2>שמחים שחזרת ל-<span>TravelAI</span></h2>
+      <p>התחברי כדי להמשיך לתכנן</p>
+  
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        
+        <div class="form-group">
+          <label>תעודת זהות</label>
+          <input type="text" formControlName="identityNumber" placeholder="הקלידי ת.ז"
+                 [ngClass]="{'input-error-style': loginForm.get('identityNumber')?.invalid && loginForm.get('identityNumber')?.touched}">
+          
+          <div *ngIf="loginForm.get('identityNumber')?.invalid && loginForm.get('identityNumber')?.touched" class="error-message">
+            <small *ngIf="loginForm.get('identityNumber')?.errors?.['required']">שדה חובה</small>
+            <small *ngIf="loginForm.get('identityNumber')?.errors?.['minlength'] || loginForm.get('identityNumber')?.errors?.['maxlength']">ת"ז חייבת להכיל 9 ספרות</small>
+            <small *ngIf="loginForm.get('identityNumber')?.errors?.['pattern']">מספרים בלבד</small>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>סיסמה</label>
+          <input type="password" formControlName="password" placeholder="הקלידי סיסמה"
+                 [ngClass]="{'input-error-style': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}">
+          
+          <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error-message">
+            <small *ngIf="loginForm.get('password')?.errors?.['required']">שדה חובה</small>
+            <small *ngIf="loginForm.get('password')?.errors?.['minlength']">מינימום 6 תווים</small>
+          </div>
+        </div>
+  
+        <button type="submit" class="btn-login">התחברות</button>
+      </form>
+  
+      <a href="/register" class="register-link">עדיין לא רשומה? הצטרפי עכשיו!</a>
+    </div>
+  </div>

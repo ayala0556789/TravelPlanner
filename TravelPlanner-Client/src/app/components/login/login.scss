@@ -1,0 +1,91 @@
+$coral: #ff9a8b;
+$ocean: #4facfe;
+
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #fdfcfb 0%, #e0f7fa 100%);
+  direction: rtl;
+  padding: 20px;
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+  backdrop-filter: blur(10px);
+  text-align: center;
+
+  h2 {
+    color: #2d3436;
+    margin-bottom: 10px;
+    span {
+      background: linear-gradient(to left, $ocean, $coral);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+    }
+  }
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: right;
+  label { display: block; margin-bottom: 8px; font-weight: 600; }
+  input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 12px;
+    outline: none;
+    transition: 0.3s;
+    &:focus { border-color: $ocean; }
+  }
+}
+
+.btn-login {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(45deg, $ocean, #00f2fe);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(79, 172, 254, 0.3);
+}
+
+.register-link {
+  margin-top: 20px;
+  display: block;
+  color: $coral;
+  text-decoration: none;
+  font-weight: 500;
+}
+// עיצוב הודעות השגיאה (אדום בולט)
+.error-message {
+  color: #ff4d4d;
+  font-size: 0.85rem;
+  margin-top: 5px;
+  display: block;
+  font-weight: 500;
+  text-align: right;
+  animation: fadeIn 0.3s ease; // אנימציה קטנה להופעת הטקסט
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// עיצוב השדה עצמו כשהוא שגוי
+.input-error-style {
+  border: 2px solid #ff4d4d !important;
+  background-color: #fff2f2 !important;
+}

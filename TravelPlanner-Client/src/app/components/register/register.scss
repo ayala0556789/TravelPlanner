@@ -1,0 +1,142 @@
+$coral: #ff9a8b;
+$ocean: #4facfe;
+
+.register-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #fdfcfb 0%, #e0f7fa 100%);
+  direction: rtl;
+  padding: 20px;
+}
+
+.register-card {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 450px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.3);
+  text-align: center;
+
+  h2 {
+    color: #2d3436;
+    margin-bottom: 10px;
+    font-size: 28px;
+    span {
+      background: linear-gradient(to left, $ocean, $coral);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+    }
+  }
+
+  p { color: #636e72; margin-bottom: 30px; }
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: right;
+  
+  label { display: block; margin-bottom: 8px; font-weight: 600; color: #2d3436; }
+  
+  input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #eee;
+    border-radius: 12px;
+    transition: 0.3s;
+    outline: none;
+    font-size: 16px;
+    
+    &:focus {
+      border-color: $ocean;
+      box-shadow: 0 0 8px rgba(79, 172, 254, 0.2);
+    }
+  }
+  
+}
+
+.btn-register {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(45deg, $coral, #ff6a88);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(255, 154, 139, 0.3);
+  transition: 0.3s;
+  margin-top: 10px;
+
+  &:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(255, 154, 139, 0.5); }
+}
+
+.login-link {
+  margin-top: 20px;
+  display: block;
+  color: $ocean;
+  text-decoration: none;
+  font-weight: 500;
+  &:hover { text-decoration: underline; }
+}
+.input-error-style {
+  border: 2px solid #ff4d4d !important;
+  background-color: #fff2f2 !important;
+}
+
+.children-section {
+  label { 
+    display: block; 
+    margin-bottom: 10px; 
+    font-weight: 600; 
+    color: #2d3436; 
+  }
+}
+
+.child-age-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+
+  input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    outline: none;
+  }
+}
+
+.btn-remove-child {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-add-child {
+  background: white;
+  color: $ocean;
+  border: 2px dashed $ocean;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: 600;
+  width: 100%;
+  margin-top: 5px;
+
+  &:hover {
+    background: rgba($ocean, 0.05);
+  }
+}

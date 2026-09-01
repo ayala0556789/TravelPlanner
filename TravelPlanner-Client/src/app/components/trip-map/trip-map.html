@@ -1,0 +1,46 @@
+<!-- <div *ngIf="isLoading" class="global-loader">
+    <div class="spinner"></div>
+    <p>טוען את פרטי הטיול שלך...</p>
+</div> -->
+
+<div class="map-wrapper">
+
+    <div class="header-section">
+        <h1>המסלול שלך ל{{tripData?.destination}} 🌍</h1>
+        <p>בתאריך: {{tripData?.travelDate | date:'dd/MM/yyyy'}}</p>
+    </div>
+
+    <div class="content-grid">
+        <div class="map-container">
+            <div id="map" class="google-map"></div>
+            <!-- <div *ngIf="!mapLoaded"  -->
+            <div class="map-loader">
+                <div class="spinner"></div>
+                <p>טוען את המפה...</p>
+        </div>
+    </div>
+
+    <div class="side-panel">
+        <h3>סדר המסלול:</h3>
+        <div class="places-list">
+            <app-place-card *ngFor="let place of tripData?.places; let i = index" [place]="place" [index]="i"
+                (placeClicked)="handlePlaceClick($event)">
+            </app-place-card>
+            <!-- <app-place-card *ngFor="let place of tripData?.places; let i = index" [place]="place" [index]="i"
+                    (placeClicked)="handlePlaceClick($event)">
+                </app-place-card> -->
+
+            <!-- <div *ngFor="let place of tripData?.places; let i = index" class="place-card">
+                    <div class="index-badge">{{i + 1}}</div>
+                    <div class="place-info">
+                        <strong>{{place.placeName}}</strong>
+                        <p>{{place.address}}</p>
+                    </div>
+                </div> -->
+        </div>
+
+        <button class="btn-check-list">📋 רשימת ציוד לטיול</button>
+    </div>
+</div>
+
+</div>

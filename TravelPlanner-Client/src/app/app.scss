@@ -1,0 +1,153 @@
+// הגדרת המשתנים מתוך הקוד שצירפת
+$coral-sunset: #ff9a8b;
+$ocean-blue: #4facfe;
+$text-dark: #2d3436;
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 80px; // המרווח המדויק מהקוד שלך
+  align-items: center;
+  position: relative;
+  z-index: 10;
+  position: fixed;
+  top: 0; // צמוד לקצה העליון
+  left: 0; // צמוד לצד שמאל
+  right: 0; // צמוד לצד ימין (יחד עם left 0 זה יוצר רוחב 100%)
+  width: 100%;
+  z-index: 1000; // מוודא שהוא תמיד מעל כל שאר רכיבי הדף
+  // background: white;  // חייב רקע לבן, אחרת התוכן שיעבור מתחתיו ייראה דרכו
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); // הוספת צל עדין כדי שיבלוט מהתוכן
+  box-sizing: border-box; // מוודא שה-Padding
+
+  // z-index: 1000;
+  // direction: rtl;
+  // width: 100%;
+  // box-sizing: border-box;
+
+  .logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: $text-dark;
+    letter-spacing: 1px;
+    cursor: pointer;
+
+    span {
+      // אפקט הגראדיאנט המיוחד מהלוגו ששלחת
+      background: linear-gradient(to right, $ocean-blue, $coral-sunset);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+
+    // עיצוב תפריט המשתמש המחובר
+    .user-menu {
+      display: flex;
+      align-items: center;
+      margin-left: 20px; // רווח משאר הקישורים (כמו "איך זה עובד")
+
+      .welcome-msg {
+        color: $text-dark;
+        font-weight: 600;
+        margin-left: 15px; // הנה הרווח שחיפשת בין "שלום אילה" ל"התנתקות"
+      }
+
+      .logout-link {
+        color: $coral-sunset; // צבע קצת שונה להתנתקות כדי שיבלוט
+        font-size: 14px;
+        text-decoration: underline;
+        margin-left: 20px; // רווח בין התנתקות לקישור הבא
+
+        &:hover {
+          color: darken($coral-sunset, 10%);
+        }
+      }
+    }
+
+    a {
+      margin-left: 35px; // שיניתי למרווח מצד שמאל כי אנחנו ב-RTL
+      text-decoration: none;
+      color: $text-dark;
+      font-weight: 500;
+      font-size: 16px;
+      transition: 0.3s ease;
+
+      &:hover {
+        color: $coral-sunset;
+      }
+    }
+
+    // עיצוב הכפתור "הטיול שלי" בדיוק לפי ה-btn-secondary שלך
+    .btn-secondary {
+      padding: 18px 50px; // גודל מותאם ל-navbar
+      background: white;
+      color: $ocean-blue;
+      border: 2px solid $ocean-blue;
+      border-radius: 40px;
+      font-size: 18px;
+      font-weight: 600;
+      margin-left: 0; // ביטול המרווח לקישור האחרון
+      transition: 0.3s ease;
+
+      &:hover {
+        // background: rgba($ocean-blue, 0.05);
+      }
+    }
+  }
+}
+
+:host {
+  display: block;
+  padding-top: 100px; // המרווח הזה צריך להיות בערך בגובה של ה-Navbar שלך
+}
+
+.weather-widget {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 5px 15px;
+  border-radius: 20px;
+  color: $text-dark;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  margin-left: 25px; // רווח מהקישורים הבאים
+}
+
+.global-overlay-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.85); /* רקע לבן חצי שקוף שמכסה את כל המסך */
+  backdrop-filter: blur(5px); /* אפקט טשטוש יפה לרקע */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* מבטיח שזה יופיע מעל הכל, כולל מפות ונאב-בר */
+  direction: rtl;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  color: #2d3436;
+
+  .spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #4facfe; /* צבע כחול אוקיינוס מהעיצוב שלך */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

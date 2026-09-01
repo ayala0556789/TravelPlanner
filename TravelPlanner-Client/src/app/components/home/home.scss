@@ -1,0 +1,226 @@
+// פלטת צבעים קייצית מודרנית ומשודרגת
+$coral-sunset: #ff9a8b; // הורוד-קורל החדש שלנו (שקיעה)
+$ocean-blue: #4facfe;   // כחול ים טרופי
+$sky-light: #fdfcfb;   // רקע בהיר, כמעט לבן
+$text-dark: #2d3436;   // צבע טקסט כהה, רך יותר משחור
+
+.main-container {
+  min-height: 100vh;
+  // background:  linear-gradient(120deg, $sky-light 0%, $coral-sunset 250%);
+  // background: linear-gradient(135deg, #fdfcfb 0%, #e0f7fa 100%);
+
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  direction: rtl; // כיוון טקסט מימין לשמאל
+  position: relative;
+  overflow: hidden; // מונע הופעת פסי גלילה מיותרים
+}
+
+// שכבת רקע עדינה של זוהר (Glow)
+.sun-glow {
+  position: absolute;
+  top: -150px;
+  left: -150px;
+  width: 400px;
+  height: 400px;
+  // background: radial-gradient(circle, rgba($coral-sunset, 0.2) 0%, rgba(255,255,255,0) 70%);
+  border-radius: 50%;
+}
+
+// בר הניווט (Navbar)
+// // .navbar {
+// //   display: flex;
+// //   justify-content: space-between;
+// //   padding: 30px 80px;
+// //   align-items: center;
+// //   position: relative;
+// //   z-index: 10; // מבטיח שה-NAV יהיה מעל הכל
+
+// //   .logo {
+// //     font-size: 28px;
+// //     font-weight: bold;
+// //     color: $text-dark;
+// //     letter-spacing: 1px;
+// //     span {
+// //       // הלוגו עצמו מקבל את הצבע הכחול, והטאץ' הקורלי
+// //       background: linear-gradient(to right, $ocean-blue, $coral-sunset);
+// //       -webkit-background-clip: text;
+// //       -webkit-text-fill-color: transparent;
+// //     }
+// //   }
+
+// //   .nav-links a {
+// //     margin-right: 35px;
+// //     text-decoration: none;
+// //     color: $text-dark;
+// //     font-weight: 500;
+// //     font-size: 16px;
+// //     transition: 0.3s ease;
+// //     &:hover {
+// //       color: $coral-sunset; // צבע ורוד-קורל במעבר עכבר
+// //     }
+// //   }
+// }
+
+// אזור התוכן הראשי (Hero)
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 150px);
+  padding: 0 20px;
+  position: relative;
+  z-index: 5;
+
+  .content-card {
+    text-align: center;
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.5); // כרטיסייה חצי שקופה
+    padding: 60px 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(5px); // אפקט טשטוש זכוכית (Glassmorphism)
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    animation: fadeIn 1s ease-out;
+
+    .tagline {
+      display: inline-block;
+      color: $coral-sunset;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 14px;
+      margin-bottom: 15px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid $coral-sunset;
+    }
+
+    h1 {
+      font-size: 60px;
+      margin: 20px 0;
+      color: $text-dark;
+      line-height: 1.1;
+      font-weight: 800;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+
+      // כותרת גראדיאנט שמשלבת את כל הצבעים
+      span {
+        background: linear-gradient(100deg, #4facfe 0%, #ff9a8b 70%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+   
+      }
+    }
+
+    p {
+      font-size: 20px;
+      color: #636e72;
+      margin-bottom: 50px;
+      line-height: 1.6;
+    }
+  }
+}
+
+// אזור הכפתורים
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+// כפתור ראשי - משתמש בורוד הקורלי
+.btn-primary {
+  padding: 18px 50px;
+  background: linear-gradient(45deg, $coral-sunset, #ff6a88);
+  color: white;
+  border: none;
+  border-radius: 40px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 12px 25px rgba($coral-sunset, 0.4);
+  transition: 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05) translateY(-3px);
+    box-shadow: 0 15px 30px rgba($coral-sunset, 0.6);
+  }
+}
+
+// כפתור משני - נקי, כחול-ים
+// .btn-secondary {
+//   padding: 18px 50px;
+//   background: white;
+//   color: $ocean-blue;
+//   border: 2px solid $ocean-blue;
+//   border-radius: 40px;
+//   font-size: 18px;
+//   font-weight: 600;
+//   cursor: pointer;
+//   transition: 0.3s ease;
+
+//   &:hover {
+//     background: rgba($ocean-blue, 0.05);
+//   }
+// }
+
+// אנימציית כניסה עדינה
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.main-container {
+  padding-top: 100px; /* נותן מקום לתפריט שצף למעלה */
+}
+
+
+// // הגדרת משתני צבע קייציים
+// $primary-sun: #ffb347; // כתום שקיעה עדין
+// $ocean-blue: #0077be;  // כחול ים עמוק
+// $sky-light: #e0f7fa;   // תכלת מים צלולים
+// $sand-white: #fdf5e6;  // חול בהיר
+
+// .hero-section {
+//     height: 100vh;
+//     background: linear-gradient(135deg, $sky-light 0%, $sand-white 100%);
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+//     text-align: center;
+//     padding: 20px;
+
+//     .content {
+//         max-width: 800px;
+        
+//         h1 {
+//             font-size: 4rem;
+//             color: $ocean-blue;
+//             margin-bottom: 20px;
+//             font-weight: 800;
+//             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+//         }
+
+//         p {
+//             font-size: 1.5rem;
+//             color: #555;
+//             margin-bottom: 40px;
+//         }
+//     }
+
+//     .cta-button {
+//         padding: 15px 40px;
+//         font-size: 1.2rem;
+//         background-color: $primary-sun;
+//         color: white;
+//         border: none;
+//         border-radius: 50px;
+//         cursor: pointer;
+//         transition: transform 0.3s, box-shadow 0.3s;
+//         box-shadow: 0 10px 20px rgba(255, 179, 71, 0.3);
+
+//         &:hover {
+//             transform: translateY(-5px);
+//             box-shadow: 0 15px 30px rgba(255, 179, 71, 0.5);
+//         }
+//     }
+// }

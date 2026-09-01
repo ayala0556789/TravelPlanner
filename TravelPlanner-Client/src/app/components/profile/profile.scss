@@ -1,0 +1,121 @@
+$coral: #ff9a8b;
+$ocean: #4facfe;
+
+.profile-wrapper {
+  min-height: calc(100vh - 100px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  direction: rtl;
+}
+
+.profile-card {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 500px;
+  backdrop-filter: blur(10px);
+  text-align: center;
+
+  h2 {
+    color: #2d3436;
+    margin-bottom: 10px;
+    span {
+      background: linear-gradient(to left, $ocean, $coral);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+    }
+  }
+
+  p { color: #636e72; margin-bottom: 30px; }
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: right;
+
+  label { display: block; margin-bottom: 8px; font-weight: 600; color: #2d3436; }
+
+  input:not([type="checkbox"]) {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #eee;
+    border-radius: 12px;
+    outline: none;
+    font-size: 16px;
+
+    &:focus { border-color: $ocean; }
+  }
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: right;
+}
+
+.children-section {
+  label { margin-bottom: 10px; }
+}
+
+.child-age-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+
+  input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    outline: none;
+  }
+}
+
+.btn-remove-child {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.btn-add-child {
+  background: white;
+  color: $ocean;
+  border: 2px dashed $ocean;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: 600;
+  width: 100%;
+  margin-top: 5px;
+
+  &:hover { background: rgba($ocean, 0.05); }
+}
+
+.btn-save-profile {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(45deg, $coral, #ff6a88);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.loading-text {
+  padding: 40px;
+  color: #636e72;
+}

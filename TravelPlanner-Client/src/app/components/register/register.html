@@ -1,0 +1,66 @@
+<div class="register-wrapper">
+  <div class="register-card">
+    <h2>הצטרפו ל-<span>TravelAI</span></h2>
+    <p>תכננו את הטיול הבא שלכם בכמה קליקים</p>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>שם פרטי</label>
+        <input type="text" formControlName="firstName" placeholder="ישראל"
+          [ngClass]="{'input-error-style': registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched}">
+      </div>
+
+      <div class="form-group">
+        <label>שם משפחה</label>
+        <input type="text" formControlName="lastName" placeholder="ישראלי"
+          [ngClass]="{'input-error-style': registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched}">
+      </div>
+
+      <div class="form-group">
+        <label>אימייל</label>
+        <input type="email" formControlName="email" placeholder="example@gmail.com"
+          [ngClass]="{'input-error-style': registerForm.get('email')?.invalid && registerForm.get('email')?.touched}">
+      </div>
+
+      <div class="form-group">
+        <label>תעודת זהות</label>
+        <input type="text" formControlName="identityNumber" placeholder="000000000"
+          [ngClass]="{'input-error-style': registerForm.get('identityNumber')?.invalid && registerForm.get('identityNumber')?.touched}">
+      </div>
+
+      <div class="form-group">
+        <label>כתובת מגורים</label>
+        <input type="text" formControlName="homeAddress" placeholder="עיר, רחוב ומספר"
+          [ngClass]="{'input-error-style': registerForm.get('homeAddress')?.invalid && registerForm.get('homeAddress')?.touched}">
+      </div>
+
+      <div class="form-group">
+        <label>סיסמה</label>
+        <input type="password" formControlName="password" placeholder="לפחות 6 תווים"
+        [ngClass]="{'input-error-style': registerForm.get('password')?.invalid && registerForm.get('password')?.touched}">      </div>
+
+
+      <div class="form-group checkbox-container">
+        <input type="checkbox" formControlName="preferAccessiblePaths" id="preferAccessiblePaths">
+        <label for="preferAccessiblePaths">אני מעדיפה מסלולים נגישים (כיסא גלגלים / קושי בהליכה)</label>
+      </div>
+
+      <div class="form-group children-section">
+        <label>גילאי ילדים (אופציונלי)</label>
+      
+        <div formArrayName="childrenAges">
+          <div *ngFor="let child of childrenAgesArray.controls; let i = index" class="child-age-row">
+            <input type="number" [formControlName]="i" placeholder="גיל" min="0" max="18">
+            <button type="button" class="btn-remove-child" (click)="removeChild(i)">✕</button>
+          </div>
+        </div>
+
+        <button type="button" class="btn-add-child" (click)="addChild()">+ הוסף ילד</button>
+      </div>
+
+      <button type="submit" class="btn-register">צור חשבון</button>
+    </form>
+
+    <a href="/login" class="login-link">כבר יש לכם חשבון? התחברו כאן</a>
+  </div>
+</div>
