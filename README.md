@@ -1,70 +1,80 @@
-# TravelAI — מערכת חכמה לתכנון ימי טיול עירוניים
+# TravelAI — AI-Powered City Trip Planner
 
-מערכת web מלאה לתכנון מסלולי טיול עירוניים בהתאמה אישית. המשתמש מגדיר יעד, זמן, תקציב, סגנון וההרכב המשפחתי, והמערכת בונה לו לו"ז אופטימלי הכולל מפה, הסברי AI לכל תחנה ושמירת המסלול לשימוש עתידי.
+A full-stack web app that builds personalized one-day city itineraries. The user sets a destination, date, duration, travel style, budget and family composition, and the system returns an optimized route with an interactive map, a short AI-written explanation for each stop, and the option to save the trip.
 
-## הרעיון המרכזי
+<!-- Add a screenshot or short GIF here -->
+<!-- ![TravelAI demo](docs/demo.gif) -->
 
-המערכת לא סומכת על ה-AI "בעיניים עצומות". הזרימה בנויה כארכיטקטורת **RAG** (Retrieval-Augmented Generation):
+**Live demo:** _add link here_
 
-1. **Google Places API** מחזיר רשימת מקומות אמיתיים ומדויקים ביעד הנבחר (קואורדינטות, מזהים).
-2. **Gemini AI** מקבל את הרשימה הזו + פרופיל המשתמש (תקציב, ילדים, נגישות, מזג אוויר), ומשמש כ"מנוע החלטות" בלבד: בוחר תת-קבוצה מתאימה, מסדר אותה גיאוגרפית, וכותב הסבר קצר לכל מקום.
+## Key Idea: RAG Instead of Blind Trust in AI
 
-כך נמנעות הזיות (Hallucinations) — ה-AI לעולם לא ממציא מקום, רק בוחר מתוך נתונים אמיתיים.
+The AI is never allowed to invent places. The planning flow follows a Retrieval-Augmented Generation (RAG) approach:
 
-## ארכיטקטורה
+1. **Google Places API** returns a list of real, verified places for the chosen destination (coordinates, place IDs).
+2. **Gemini** receives that list together with the user profile (budget, children, accessibility, weather) and acts only as a decision engine: it selects a suitable subset, orders it geographically, and writes a short explanation per place.
+3. Because Gemini chooses only from real data, hallucinated places are avoided.
 
-### צד שרת — C# / ASP.NET Core, Clean Architecture
+<!-- Add a small flow diagram: User -> Google Places -> Gemini -> Route + Map -->
 
-```
-TravelPlanner.Domain          Entities, Interfaces, DTOs — ליבת המערכת, ללא תלויות חיצוניות
-TravelPlanner.Application     Use Cases (CQRS עם MediatR), DTOs, Mappings
-TravelPlanner.Infrastructure  מימוש מול DB (EF Core), שירותים חיצוניים (Google Maps, Gemini, Weather), JWT
-TravelPlanner.WebApi          Controllers, נקודות קצה, הגדרות אימות ו-CORS
-```
+## Features
 
-### צד לקוח — Angular (Standalone Components, Signals)
+- Registration and login with JWT, including Israeli ID number validation (Ministry of Interior algorithm).
+- User profile: home address, children's ages (dynamic list), and a preference for accessible routes.
+- Trip creation: destination, date, duration, style (history / food / nature / shopping), budget (free only / paid included), and which children join this specific trip.
+- AI planning that combines Google Places, Gemini and Open-Meteo (weather), taking young children and accessibility into account.
+- Interactive Google Map with the selected places.
+- **Graceful fallback:** if the AI is unavailable (free quota exhausted or network failure), the app falls back to the top places returned by Google, so the user never sees an error screen.
+- Trip history and packing list (in progress).
+
+## Architecture
+
+### Backend: C# / ASP.NET Core, Clean Architecture
+
+| Layer | Responsibility |
+|---|---|
+| `TravelPlanner.Domain` | Entities, interfaces, DTOs. The core, with no external dependencies |
+| `TravelPlanner.Application` | Use cases (CQRS with MediatR), DTOs, mappings |
+| `TravelPlanner.Infrastructure` | EF Core data access, external services (Google Maps, Gemini, Weather), JWT |
+| `TravelPlanner.WebApi` | Controllers, endpoints, authentication and CORS configuration |
+
+### Frontend: Angular (Standalone Components, Signals)
 
 ```
 components/   home, register, login, profile, plan-trip, trip-map (+ place-card)
 services/     auth, trip, profile, weather, loading, alerts
-guards/       auth-guard — חוסם גישה למי שאינו מחובר
-interceptors/ auth (מצרף JWT לכל בקשה), loading (מציג Spinner גלובלי)
+guards/       auth-guard: blocks access for unauthenticated users
+interceptors/ auth (attaches JWT to every request), loading (global spinner)
 ```
 
-## פיצ'רים עיקריים
+## Tech Stack
 
-- **הרשמה והתחברות** עם JWT, כולל ולידציית תעודת זהות ישראלית (אלגוריתם משרד הפנים).
-- **פרופיל אישי**: כתובת מגורים, גילאי ילדים (רשימה דינמית), העדפת מסלולים נגישים.
-- **יצירת טיול מותאם אישית**: יעד, תאריך, משך זמן, סגנון (היסטוריה / קולינריה / טבע / קניות), תקציב (חינמי בלבד / כולל תשלום), ובחירה מי מהילדים מצטרף לטיול הספציפי.
-- **תכנון AI**: שילוב Google Places + Gemini + Open-Meteo (מזג אוויר) לבניית מסלול מותאם, כולל התחשבות בנוחות למשפחות עם ילדים קטנים ובנגישות.
-- **מפת Google אינטראקטיבית** עם סימון המקומות שנבחרו.
-- **מנגנון Fallback**: אם ה-AI אינו זמין (מכסה חינמית / תקלת רשת), המערכת נופלת בעדינות למקומות המובילים שהוחזרו מגוגל, כדי שהמשתמש לעולם לא יקבל מסך שגיאה.
-- **היסטוריית טיולים** ורשימת ציוד לטיול (בפיתוח).
-
-## טכנולוגיות
-
-| שכבה | טכנולוגיה |
+| Area | Technology |
 |---|---|
 | Backend | ASP.NET Core Web API, EF Core, MediatR (CQRS), JWT, BCrypt |
 | Frontend | Angular (Standalone, Signals, Reactive Forms), SweetAlert2 |
-| DB | SQL Server |
-| AI | Google Gemini (REST API ישיר) |
-| מפות ומקומות | Google Maps JavaScript API, Google Places API |
-| מזג אוויר | Open-Meteo (חינמי, ללא מפתח) |
+| Database | SQL Server |
+| AI | Google Gemini (direct REST API) |
+| Maps and places | Google Maps JavaScript API, Google Places API |
+| Weather | Open-Meteo (free, no API key) |
 
-## הרצה מקומית
+## Getting Started
 
-### שרת
-1. עדכני `TravelPlanner.WebApi/appsettings.Development.json` עם: Connection String, מפתחות Google Maps ו-Gemini, ומפתח JWT (קובץ זה אינו נכלל ב-Git — יש ליצור אותו לפי `appsettings.json`).
-2. `Update-Database` להרצת ה-Migrations.
-3. הרצה מ-Visual Studio (F5).
+### Server
 
-### לקוח
-1. עדכני `src/environments/environment.development.ts` עם מפתח Google Maps.
-2. `npm install`
-3. `ng serve`
+1. Create `TravelPlanner.WebApi/appsettings.Development.json` based on `appsettings.json`, with your connection string, Google Maps and Gemini keys, and a JWT key. This file is not committed to Git.
+2. Run `Update-Database` to apply the migrations.
+3. Start the API from Visual Studio (F5).
 
-## הערות אבטחה
+### Client
 
-- מפתחות API וסודות (Connection String, JWT Key) מופרדים מהקוד באמצעות `appsettings.Development.json` / `environment.development.ts`, שאינם עולים ל-Git.
-- מפתח Google Maps חשוף מטבעו בצד הלקוח (נדרש לטעינת JavaScript API) — יש להגביל אותו ב-Google Cloud Console לפי HTTP Referrer לפני עלייה לסביבת ייצור.
+1. Set your Google Maps key in `src/environments/environment.development.ts`.
+2. Run `npm install`.
+3. Run `ng serve`.
+
+## Security Notes
+
+- API keys and secrets (connection string, JWT key) are kept out of the code in `appsettings.Development.json` and `environment.development.ts`, which are not committed to Git.
+- The Google Maps key is inherently exposed on the client (required for the JavaScript API). Restrict it by HTTP referrer in Google Cloud Console before deploying to production.
+
+
